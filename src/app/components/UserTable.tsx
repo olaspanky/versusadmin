@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import { PencilIcon, LockClosedIcon, BanIcon, ClockIcon } from '@heroicons/react/outline';
 import {
@@ -26,23 +28,8 @@ interface User {
   status: string;
   lastLogin: string; // Ensure this is a string in ISO format
   balance: number;
-  accumulatedTime: string;
+  accumulatedTime: string
 }
-
-interface UserActivityGraphProps {
-  data: { dates: string[]; timeSpent: number[] };
-  user: User; // Ensure this matches the User interface
-}
-
-const UserActivityGraph: React.FC<UserActivityGraphProps> = ({ data, user }) => {
-  return (
-    <div>
-      {/* Render the graph using data and user */}
-      <p>Graph for {user.name}</p>
-      {/* Add your graph rendering logic here */}
-    </div>
-  );
-};
 
 const UsersTable = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -51,6 +38,7 @@ const UsersTable = () => {
   const [graphData, setGraphData] = useState({ dates: [], timeSpent: [] });
 
   console.log('Users:', users);
+  
 
   useEffect(() => {
     // Fetch users from the API
@@ -83,7 +71,7 @@ const UsersTable = () => {
   const handleEditUser = async (updatedName: string, updatedEmail: string) => {
     if (selectedUser) {
       try {
-        const response = await fetch(`https://admin2-neon.vercel.app/api/users/${selectedUser.id}`, {
+        const response = await fetch(`https://admin2-neon.vercel.app/api/users/${selectedUser._id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -173,11 +161,12 @@ const UsersTable = () => {
         <TableBody>
           {users.map((user) => (
             <TableRow key={user.id}>
-              <TableCell className="font-medium">{user?.email}</TableCell>
+              <TableCell className="font-medium">  {user?.email}
+              </TableCell>
               <TableCell>
-                <span>
-                  {(parseFloat(user.accumulatedTime) / 3600).toFixed(2)} hours
-                </span>
+              <span>
+  {(user.accumulatedTime / 3600).toFixed(2)} hours
+</span>
               </TableCell>
               <TableCell>{formatDate(user.lastLogin)}</TableCell>
               <TableCell>
