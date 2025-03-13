@@ -21,16 +21,19 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import Modal from '../components/Modal';
 import UserActivityGraph from './UserActivityGraph';
 
-interface User {
+// UsersTable.tsx
+export interface User {
   id: number;
   _id: string;
   name: string;
   email: string;
   status: string;
-  lastLogin: string; // Ensure this is a string in ISO format
+  lastLogin: string;
   balance: number;
-  accumulatedTime: string
+  accumulatedTime: string;
 }
+
+
 
 const UsersTable = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -274,9 +277,13 @@ const UsersTable = () => {
         </Dialog>
       )}
 
-      <Modal isOpen={action === 'history' && !!selectedUser} onClose={handleCloseModal}>
-        {selectedUser && <UserActivityGraph data={graphData} user={selectedUser} />}
-      </Modal>
+<Modal 
+  isOpen={action === 'history' && !!selectedUser} 
+  onClose={handleCloseModal}
+  key={selectedUser?._id} // Add unique key
+>
+  {selectedUser && <UserActivityGraph data={graphData} user={selectedUser} />}
+</Modal>
     </div>
   );
 };

@@ -20,7 +20,7 @@ import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import html2canvas from "html2canvas";
-
+import {User} from "./UserTable"
 
 ChartJS.register(
   CategoryScale,
@@ -33,8 +33,11 @@ ChartJS.register(
 );
 
 interface UserActivityGraphProps {
-  data: { dates: string[]; timeSpent: number[] };
-  user: string;
+  data: {
+    dates: string[];
+    timeSpent: number[];
+  };
+  user: User;
 }
 
 const UserActivityGraph: React.FC<UserActivityGraphProps> = ({ data, user }) => {

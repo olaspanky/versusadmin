@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import UserActivityTable from '../../components/UserActivityTable';
 import UserActivityGraph from '../../components/UserActivityGraph';
 import Modal from '../../components/Modal';
+import {User} from "../../components/UserTable"
 
 interface UserActivity {
   id: number; // Should be number to match the data type in data.ts
