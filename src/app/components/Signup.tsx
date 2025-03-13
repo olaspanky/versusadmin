@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import Dropdown2 from './Dropdown2';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { CognitoUserAttribute } from 'amazon-cognito-identity-js';
+
 
 interface CustomAlertProps {
   message: string;
@@ -79,18 +81,20 @@ const SignUp: React.FC = () => {
     const selectedCountries = Object.keys(countries)
       .filter(country => countries[country])
       .join(', ');
-
+  
     if (!selectedCountries) {
       showAlert('Please select at least one country', 'error');
       return;
     }
-
+  
+    const attributes = [
+      new CognitoUserAttribute({ Name: 'custom:ATC2', Value: JSON.stringify(ATC2) }),
+      new CognitoUserAttribute({ Name: 'custom:company', Value: company }),
+      new CognitoUserAttribute({ Name: 'custom:country', Value: selectedCountries })
+    ];
+  
     try {
-      const signUpResponse = await UserPool.signUp(email, password, [
-        { Name: 'custom:ATC2', Value: JSON.stringify(ATC2) },
-        { Name: 'custom:company', Value: company },
-        { Name: 'custom:country', Value: selectedCountries }
-      ], null, (err: { message: string; }, data: { user: { getUsername: () => string; }; }) => {
+      UserPool.signUp(email, password, attributes, null, (err, data) => {
         if (err) {
           console.error(err);
           showAlert(err.message, 'error');
@@ -103,7 +107,7 @@ const SignUp: React.FC = () => {
       });
     } catch (error) {
       console.error('Error during sign-up:', error);
-      setError((error as unknown).message || "An error occurred");
+      setError((error as Error).message || "An error occurred");
       showAlert((error as Error).message, 'error');
     }
   };
