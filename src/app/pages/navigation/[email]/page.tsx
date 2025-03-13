@@ -27,6 +27,13 @@ interface PageStats {
   totalTimeSpent: number;
 }
 
+interface UserNavigationHistory {
+  url: string;
+  timestamp?: string;
+  timeSpent?: number;
+}
+
+
 export default function UserNavigationPage() {
   const { email } = useParams<{ email: string }>();
   const decodedEmail = decodeURIComponent(email);
@@ -36,19 +43,30 @@ export default function UserNavigationPage() {
   const [globalFilter, setGlobalFilter] = useState<string>('');
   const [showAllNavigations, setShowAllNavigations] = useState(false);
 
+
   useEffect(() => {
     const loadHistory = async () => {
       try {
-        const data = await fetchNavigationHistory(decodedEmail);
-        setHistory(data);
+        const data = await fetchNavigationHistory(decodedEmail) as (NavigationEntry | UserNavigationHistory)[];
+  
+        // Convert UserNavigationHistory to NavigationEntry format
+        const formattedData: NavigationEntry[] = data.map((entry) => ({
+          page: "page" in entry ? entry.page : entry.url,
+          timestamp: entry.timestamp ?? new Date().toISOString(),
+          timeSpent: entry.timeSpent ?? 0,
+        }));
+  
+        setHistory(formattedData);
       } catch (error) {
-        console.error('Error fetching navigation history:', error);
+        console.error("Error fetching navigation history:", error);
       }
     };
+  
     if (decodedEmail) {
       loadHistory();
     }
   }, [decodedEmail]);
+  
 
   // Filter out ignored pages and apply date range, clean up URLs
   const filteredHistory = useMemo(() => {

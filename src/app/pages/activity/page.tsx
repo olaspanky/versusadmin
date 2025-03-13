@@ -1,32 +1,13 @@
-"use client"
+"use client";
 import { useState, useEffect } from 'react';
 import UserActivityTable from '../../components/UserActivityTable';
 import UserActivityGraph from '../../components/UserActivityGraph';
 import Modal from '../../components/Modal';
-
-// First, define or import the User interface
-interface User {
-  id: number;
-  _id: string;
-  name: string;
-  email: string;
-  status: string;
-  lastLogin: string;
-  balance: number;
-  accumulatedTime: string;
-}
-
-interface UserActivity {
-  id: number;
-  user: User; // Changed from string to User
-  activity: string;
-  date: string;
-  timeSpent: number;
-}
+import { UserActivity, User } from '../../lib/data'; // Import from the shared file
 
 const ActivityPage = () => {
   const [activities, setActivities] = useState<UserActivity[]>([]);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null); // Changed to User type
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [graphData, setGraphData] = useState({ dates: [], timeSpent: [] });
 
   useEffect(() => {
@@ -34,13 +15,13 @@ const ActivityPage = () => {
       try {
         const response = await fetch('https://admin2-neon.vercel.app/api/users/activities');
         const data = await response.json();
-        
+
         const formattedData: UserActivity[] = data.map((activity: UserActivity) => ({
           ...activity,
           date: new Date(activity.date).toLocaleDateString(),
-          user: activity.user // Ensure API returns full user object
+          user: activity.user,
         }));
-        
+
         setActivities(formattedData);
       } catch (error) {
         console.error('Error fetching activities:', error);
@@ -66,7 +47,7 @@ const ActivityPage = () => {
     fetchGraphData();
   }, [selectedUser]);
 
-  const handleRowClick = (user: User) => { // Updated parameter type
+  const handleRowClick = (user: User) => {
     setSelectedUser(user);
   };
 
@@ -78,16 +59,16 @@ const ActivityPage = () => {
     <div className="p-8 max-h-[100vh]">
       <h1 className="text-2xl font-bold mb-4">User Activity</h1>
       <div className='h-screen overflow-auto'>
-        <UserActivityTable 
-          activities={activities} 
-          onRowClick={handleRowClick} 
+        <UserActivityTable
+          activities={activities}
+          onRowClick={handleRowClick}
         />
       </div>
       <Modal isOpen={!!selectedUser} onClose={handleCloseModal}>
         {selectedUser && (
-          <UserActivityGraph 
-            data={graphData} 
-            user={selectedUser} // Now passing User object
+          <UserActivityGraph
+            data={graphData}
+            user={selectedUser}
           />
         )}
       </Modal>
