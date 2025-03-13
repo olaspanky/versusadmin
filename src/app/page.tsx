@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useAuth } from "./context/AuthContext";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import logo from "../../public/logo.png"
 
 export default function Home() {
   const [password, setPassword] = useState("");
@@ -28,7 +29,7 @@ export default function Home() {
         {/* Logo or Icon */}
         <div className="flex justify-center mb-6">
           <Image
-            src="/admin-icon.png" // Replace with your admin icon or logo
+            src={logo} // Replace with your admin icon or logo
             alt="Admin Logo"
             width={80}
             height={80}
