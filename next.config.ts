@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
 },
   /* config options here */
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "noEmit": false
+  }
 };
 
 export default nextConfig;
