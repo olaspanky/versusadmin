@@ -277,13 +277,9 @@ const UsersTable = () => {
         </Dialog>
       )}
 
-<Modal 
-  isOpen={action === 'history' && !!selectedUser} 
-  onClose={handleCloseModal}
-  key={selectedUser?._id} // Add unique key
->
-  {selectedUser && <UserActivityGraph data={graphData} user={selectedUser} />}
-</Modal>
+      <Modal isOpen={action === 'history' && !!selectedUser} onClose={handleCloseModal}>
+        {selectedUser && <UserActivityGraph data={graphData} user={selectedUser} />}
+      </Modal>
     </div>
   );
 };
