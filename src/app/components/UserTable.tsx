@@ -31,6 +31,8 @@ interface User {
   accumulatedTime: string
 }
 
+
+
 const UsersTable = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
@@ -71,7 +73,7 @@ const UsersTable = () => {
   const handleEditUser = async (updatedName: string, updatedEmail: string) => {
     if (selectedUser) {
       try {
-        const response = await fetch(`https://admin2-neon.vercel.app/api/users/${selectedUser._id}`, {
+        const response = await fetch(`https://admin2-neon.vercel.app/api/users/${selectedUser.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -165,7 +167,7 @@ const UsersTable = () => {
               </TableCell>
               <TableCell>
               <span>
-  {(user.accumulatedTime / 3600).toFixed(2)} hours
+  {(parseFloat(user.accumulatedTime) / 3600).toFixed(2)} hours
 </span>
               </TableCell>
               <TableCell>{formatDate(user.lastLogin)}</TableCell>
