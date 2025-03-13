@@ -23,6 +23,7 @@ import UserActivityGraph from './UserActivityGraph';
 
 interface User {
   id: number;
+  _id: string;
   name: string;
   email: string;
   status: string;
