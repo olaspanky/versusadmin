@@ -9,7 +9,6 @@ import {
   ColumnDef,
   flexRender,
 } from '@tanstack/react-table';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -34,10 +33,7 @@ interface CompanyData {
   userCount: number;
 }
 
-interface ChartData {
-  date: string;
-  timeSpent: number;
-}
+
 
 interface PageStats {
   page: string;
@@ -168,19 +164,10 @@ export default function CompanyAnalyticsDashboard() {
   }, [filteredHistory]);
 
   // Time Spent Trend
-  const chartData: ChartData[] = useMemo(() => {
-    const dailyTotals = filteredHistory.reduce((acc, entry) => {
-      const date = format(parseISO(entry.timestamp), 'yyyy-MM-dd');
-      acc[date] = (acc[date] || 0) + entry.timeSpent;
-      return acc;
-    }, {} as Record<string, number>);
-    return Object.entries(dailyTotals)
-      .map(([date, timeSpent]) => ({ date, timeSpent: timeSpent / 3600 })) // Convert to hours
-      .sort((a, b) => a.date.localeCompare(b.date));
-  }, [filteredHistory]);
+
 
   // Activity Table
-  const activityColumns: ColumnDef<any>[] = useMemo(
+  const activityColumns: ColumnDef<{ email: string; page: string; timestamp: string; timeSpent: number }>[] = useMemo(
     () => [
       { accessorKey: 'email', header: 'User' },
       { accessorKey: 'page', header: 'Page' },

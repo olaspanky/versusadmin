@@ -65,6 +65,8 @@ const SignUp: React.FC = () => {
   });
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
+
+
   const handleDropdownChange = (selected: string[]) => {
     setATC2(selected);
   };
@@ -108,7 +110,6 @@ const SignUp: React.FC = () => {
       });
     } catch (error) {
       console.error('Error during sign-up:', error);
-      setError((error as Error).message || "An error occurred");
       showAlert((error as Error).message, 'error');
     }
   };
@@ -217,3 +218,4 @@ const SignUp: React.FC = () => {
 };
 
 export default SignUp;
+
