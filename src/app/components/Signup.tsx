@@ -42,7 +42,6 @@ const CustomAlert: React.FC<CustomAlertProps> = ({ message, type }) => {
 };
 
 const SignUp: React.FC = () => {
-  const [error, setError] = useState<string>("");
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [alertType, setAlertType] = useState<string>("");
 
@@ -94,15 +93,17 @@ const SignUp: React.FC = () => {
     ];
   
     try {
-      UserPool.signUp(email, password, attributes, null, (err, data) => {
+      UserPool.signUp(email, password, attributes, [], (err, data) => {
         if (err) {
           console.error(err);
           showAlert(err.message, 'error');
         } else {
-          const userEmail = data.user.getUsername();
-          showAlert('Sign-up successful. Confirmation code sent to:', userEmail);
-          localStorage.setItem('userEmail', userEmail);
-          router.push("/");
+          if (data && data.user) {
+            const userEmail = data.user.getUsername();
+            showAlert('Sign-up successful. Confirmation code sent to:', userEmail);
+            localStorage.setItem('userEmail', userEmail);
+            router.push("/");
+          }
         }
       });
     } catch (error) {
