@@ -166,7 +166,7 @@ const UsersTable = () => {
               </TableCell>
               <TableCell>
               <span>
-  {(user.accumulatedTime / 3600).toFixed(2)} hours
+  {(parseFloat(user.accumulatedTime) / 3600).toFixed(2)} hours
 </span>
               </TableCell>
               <TableCell>{formatDate(user.lastLogin)}</TableCell>
