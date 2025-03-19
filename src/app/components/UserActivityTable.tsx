@@ -45,7 +45,7 @@ const UserActivityTable: React.FC<UserActivityTableProps> = ({
 
   return (
     <div>
-      <div className="flex items-center mb-4">
+      <div className="flex items-center mb-4 ">
         <input
           type="date"
           value={searchDate}
@@ -73,9 +73,9 @@ const UserActivityTable: React.FC<UserActivityTableProps> = ({
             <TableRow
               key={index}
               onClick={() => onRowClick(activity.user)}
-              className="cursor-pointer hover:bg-gray-100"
+              className="cursor-pointer hover:bg-gray-800 text-white "
             >
-              <TableCell>{activity.user.name}</TableCell> {/* Display user name */}
+              <TableCell>{activity.user.email}</TableCell> {/* Display user name */}
               <TableCell>{activity.activity}</TableCell>
               <TableCell>{activity.date}</TableCell>
             </TableRow>

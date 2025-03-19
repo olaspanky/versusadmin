@@ -232,7 +232,7 @@ const CompanyTimeReport = () => {
           <Button onClick={handleSearch} disabled={loading}>
             {loading ? 'Loading...' : 'Search'}
           </Button>
-          <Button variant="outline" onClick={clearFilters}>
+          <Button className='bg-white text-black' onClick={clearFilters}>
             Clear
           </Button>
         </div>

@@ -156,7 +156,7 @@ export default function UserNavigationPage() {
             onChange={(newValue) => setStartDate(newValue)}
             slotProps={{
               textField: {
-                className: "bg-white/10 text-white rounded-md border border-white/20 focus:ring-indigo-500",
+                className: "bg-white text-white rounded-md border border-white/20 focus:ring-indigo-500",
               },
             }}
           />
@@ -166,7 +166,7 @@ export default function UserNavigationPage() {
             onChange={(newValue) => setEndDate(newValue)}
             slotProps={{
               textField: {
-                className: "bg-white/10 text-white rounded-md border border-white/20 focus:ring-indigo-500",
+                className: "bg-white text-white rounded-md border border-white/20 focus:ring-indigo-500",
               },
             }}
           />
@@ -259,7 +259,7 @@ export default function UserNavigationPage() {
               placeholder="Search navigations..."
               value={globalFilter}
               onChange={(e) => setGlobalFilter(e.target.value)}
-              className="mb-4 w-full max-w-sm bg-white/10 text-white border border-white/20 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+              className="mb-4 w-full max-w-sm bg-white text-white border border-white/20 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
             />
             <div className="overflow-x-auto">
               <table className="w-full text-left">
@@ -279,7 +279,7 @@ export default function UserNavigationPage() {
                     table.getRowModel().rows.map((row) => (
                       <tr
                         key={row.id}
-                        className="hover:bg-white/10 transition-colors border-b border-white/10"
+                        className="hover:bg-white transition-colors border-b border-white/10"
                       >
                         {row.getVisibleCells().map((cell) => (
                           <td key={cell.id} className="py-2 px-4">

@@ -199,13 +199,13 @@ export default function CompanyAnalyticsDashboard() {
             label="Start Date"
             value={startDate}
             onChange={(newValue) => setStartDate(newValue)}
-            slotProps={{ textField: { className: "bg-white/10 text-white rounded-md border border-white/20 focus:ring-indigo-500" } }}
+            slotProps={{ textField: { className: "bg-white text-white rounded-md border border-white/20 focus:ring-indigo-500" } }}
           />
           <DatePicker
             label="End Date"
             value={endDate}
             onChange={(newValue) => setEndDate(newValue)}
-            slotProps={{ textField: { className: "bg-white/10 text-white rounded-md border border-white/20 focus:ring-indigo-500" } }}
+            slotProps={{ textField: { className: "bg-white text-white rounded-md border border-white/20 focus:ring-indigo-500" } }}
           />
           <button
             className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md transition-colors"
@@ -217,12 +217,12 @@ export default function CompanyAnalyticsDashboard() {
         {error && <div className="text-center text-red-400 mb-4">{error}</div>}
 
         {/* Dashboard Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6 mb-8">
           {/* Top Users */}
           <div className="bg-white/5 border border-white/10 rounded-lg p-4 backdrop-blur-md shadow-lg hover:shadow-xl transition-shadow">
             <h2 className="text-xl font-semibold text-indigo-300 mb-4">Top Users by Time Spent</h2>
             {topUsers.length > 0 ? topUsers.map((user, index) => (
-              <div key={user.email} className={`flex justify-between py-2 px-4 rounded-md mb-2 ${index === 0 ? 'bg-indigo-500/20' : 'bg-gray-500/20'}`}>
+              <div key={user.email} className={`flex justify-between text-lg 2xl:text-xl py-2 px-4 rounded-md mb-2 ${index === 0 ? 'bg-indigo-500/20' : 'bg-gray-500/20'}`}>
                 <span>{user.email}</span>
                 <span>{formatTimeToHours(user.totalTime)}</span>
               </div>
@@ -233,7 +233,7 @@ export default function CompanyAnalyticsDashboard() {
           <div className="bg-white/5 border border-white/10 rounded-lg p-4 backdrop-blur-md shadow-lg hover:shadow-xl transition-shadow">
             <h2 className="text-xl font-semibold text-indigo-300 mb-4">Top Companies by Time</h2>
             {topCompanies.length > 0 ? topCompanies.map((company, index) => (
-              <div key={company.company} className={`flex justify-between py-2 px-4 rounded-md mb-2 ${index === 0 ? 'bg-indigo-500/20' : 'bg-gray-500/20'}`}>
+              <div key={company.company} className={`text-lg 2xl:text-xl flex justify-between py-2 px-4 rounded-md mb-2 ${index === 0 ? 'bg-indigo-500/20' : 'bg-gray-500/20'}`}>
                 <span className="capitalize">{company.company}</span>
                 <span>{formatTimeToHours(company.totalTime)} ({company.userCount} users)</span>
               </div>
@@ -244,7 +244,7 @@ export default function CompanyAnalyticsDashboard() {
           <div className="bg-white/5 border border-white/10 rounded-lg p-4 backdrop-blur-md shadow-lg hover:shadow-xl transition-shadow">
             <h2 className="text-xl font-semibold text-indigo-300 mb-4">Top User per Company</h2>
             {topUserPerCompany.length > 0 ? topUserPerCompany.slice(0, 10).map((entry) => (
-              <div key={entry.company} className="flex justify-between py-2 px-4 rounded-md mb-2 bg-gray-500/20">
+              <div key={entry.company} className="ttext-lg 2xl:text-xl flex justify-between py-2 px-4 rounded-md mb-2 bg-gray-500/20">
                 <span className="capitalize">{entry.company}: {entry.email}</span>
                 <span>{formatTimeToHours(entry.totalTime)}</span>
               </div>
@@ -255,7 +255,7 @@ export default function CompanyAnalyticsDashboard() {
           <div className="bg-white/5 border border-white/10 rounded-lg p-4 backdrop-blur-md shadow-lg hover:shadow-xl transition-shadow">
             <h2 className="text-xl font-semibold text-indigo-300 mb-4">Top Pages Visited</h2>
             {pageStats.length > 0 ? pageStats.map((page, index) => (
-              <div key={page.page} className={`flex justify-between py-2 px-4 rounded-md mb-2 ${index === 0 ? 'bg-indigo-500/20' : 'bg-gray-500/20'}`}>
+              <div key={page.page} className={`text-lg 2xl:text-xl flex justify-between py-2 px-4 rounded-md mb-2 ${index === 0 ? 'bg-indigo-500/20' : 'bg-gray-500/20'}`}>
                 <span className="capitalize">{page.page}</span>
                 <span>{page.visitCount} visits ({formatTimeToHours(page.totalTimeSpent)})</span>
               </div>
@@ -282,7 +282,7 @@ export default function CompanyAnalyticsDashboard() {
               placeholder="Search activity..."
               value={globalFilter}
               onChange={(e) => setGlobalFilter(e.target.value)}
-              className="mb-4 w-full max-w-sm bg-white/10 text-white border border-white/20 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+              className="mb-4 w-full max-w-sm bg-white text-white border border-white/20 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
             />
             <div className="overflow-x-auto">
               <table className="w-full text-left">
@@ -300,7 +300,7 @@ export default function CompanyAnalyticsDashboard() {
                 <tbody>
                   {activityTable.getRowModel().rows.length > 0 ? (
                     activityTable.getRowModel().rows.map((row) => (
-                      <tr key={row.id} className="hover:bg-white/10 transition-colors border-b border-white/10">
+                      <tr key={row.id} className="hover:bg-white transition-colors border-b border-white/10">
                         {row.getVisibleCells().map((cell) => (
                           <td key={cell.id} className="py-2 px-4">
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
