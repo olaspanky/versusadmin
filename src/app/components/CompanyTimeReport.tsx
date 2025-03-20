@@ -15,6 +15,8 @@ import {
 interface UserTime {
   email: string;
   totalTime: number;
+  activeDates: string[];
+  idleDates: string[];
 }
 
 interface CompanyTime {
@@ -36,7 +38,7 @@ const CompanyTimeReport = () => {
     setLoading(true);
     setError("");
     try {
-      let url = "http://localhost:5000/api/users/companies/times";
+      let url = "https://admin2-neon.vercel.app/api/users/companies/times";
       const params = new URLSearchParams();
       if (start) params.append("startDate", start);
       if (end) params.append("endDate", end);
@@ -98,6 +100,10 @@ const CompanyTimeReport = () => {
     return `${days}d ${hours}h ${minutes}m`;
   };
 
+  const formatDates = (dates: string[]) => {
+    return dates.length > 0 ? dates.join(", ") : "None";
+  };
+
   return (
     <div className="p-6 text-white bg-gray-900 min-h-screen">
       <div className="flex flex-col gap-4 mb-6">
@@ -116,10 +122,17 @@ const CompanyTimeReport = () => {
             className="max-w-xs bg-gray-800 text-white border-gray-700"
             placeholder="End date"
           />
-          <Button onClick={handleSearch} disabled={loading} className="bg-indigo-600 hover:bg-indigo-700">
+          <Button
+            onClick={handleSearch}
+            disabled={loading}
+            className="bg-indigo-600 hover:bg-indigo-700"
+          >
             {loading ? "Loading..." : "Search"}
           </Button>
-          <Button onClick={clearFilters} className="bg-gray-700 hover:bg-gray-600 text-white">
+          <Button
+            onClick={clearFilters}
+            className="bg-gray-700 hover:bg-gray-600 text-white"
+          >
             Clear
           </Button>
         </div>
@@ -162,7 +175,9 @@ const CompanyTimeReport = () => {
                           <TableHeader>
                             <TableRow className="border-b border-gray-600">
                               <TableHead className="text-gray-300">Email</TableHead>
-                              <TableHead className="text-gray-300">Time Spent</TableHead>
+                              <TableHead className="text-gray-300">Total Time</TableHead>
+                              <TableHead className="text-gray-300">Active Dates</TableHead>
+                              <TableHead className="text-gray-300">Idle Dates</TableHead>
                             </TableRow>
                           </TableHeader>
                           <TableBody>
@@ -170,6 +185,12 @@ const CompanyTimeReport = () => {
                               <TableRow key={user.email} className="border-b border-gray-600">
                                 <TableCell>{user.email}</TableCell>
                                 <TableCell>{formatTime(user.totalTime)}</TableCell>
+                                <TableCell className="text-green-400">
+                                  {formatDates(user.activeDates)}
+                                </TableCell>
+                                <TableCell className="text-yellow-400">
+                                  {formatDates(user.idleDates)}
+                                </TableCell>
                               </TableRow>
                             ))}
                           </TableBody>
