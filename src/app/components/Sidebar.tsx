@@ -96,7 +96,7 @@ const Sidebar = () => {
               onClick={logout} // Attach logout handler here for Logout button
               className={cn(
                 "w-full justify-start hover:bg-gray-700/50 hover:text-white",
-                isActive ? "bg-orange-600 text-white" : "text-white",
+                isActive ? "bg-indigo-600 text-white" : "text-white",
                 !isOpen && "justify-center"
               )}
             >
