@@ -69,7 +69,7 @@ const Sidebar = () => {
                 className={cn(
                   "w-full flex items-center px-3 py-2 text-sm rounded-md transition-colors",
                   isActive
-                    ? "bg-orange-600 text-white" // Highlight active route
+                    ? "bg-indigo-600 text-white" // Highlight active route
                     : "text-white hover:bg-gray-700/50",
                   !isOpen && "justify-center"
                 )}
