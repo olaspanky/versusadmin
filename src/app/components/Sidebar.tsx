@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { usePathname } from "next/navigation"; // For active route detection
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -12,30 +12,26 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import {
-  FolderIcon,
-  HomeIcon,          // Overview
-  UserGroupIcon,      // Manage Users
-  ClipboardIcon,  // Users Activity
-  BuildingOfficeIcon, // Companies
-  MapIcon,            // Navigations
-  ChatBubbleLeftIcon, // Feedbacks
-  UserPlusIcon,       // Onboard User
-  ArrowRightIcon, // Logout
-} from "@heroicons/react/24/outline"; // Use outline icons from v2
+  MenuIcon,              // Toggle sidebar (replacing FolderIcon)
+  HomeIcon,             // Overview
+  UsersIcon,            // Manage Users (replacing UserGroupIcon)
+  ClipboardIcon,        // Users Activity
+  OfficeBuildingIcon,   // Companies (replacing BuildingOfficeIcon)
+  MapIcon,              // Navigations
+  ChatAltIcon,          // Feedbacks (replacing ChatBubbleLeftIcon)
+  UserAddIcon,          // Onboard User (replacing UserPlusIcon)
+  LogoutIcon,           // Logout (replacing ArrowRightIcon)
+} from "@heroicons/react/outline"; // Heroicons v1 import
 import { useAuth } from "../context/AuthContext";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false); // Closed by default
   const { isAuthenticated, logout } = useAuth();
-  const pathname = usePathname(); // Get current route
+  const pathname = usePathname();
 
-  if (!isAuthenticated) {
-    return null; // AuthProvider will redirect to login
-  }
+  if (!isAuthenticated) return null;
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleSidebar = () => setIsOpen(!isOpen);
 
   const NavItem = ({
     href,
@@ -46,7 +42,7 @@ const Sidebar = () => {
     icon: React.ElementType;
     label: string;
   }) => {
-    const isActive = href ? pathname === href : false; // Highlight based on current route
+    const isActive = href ? pathname === href : false;
     const content = (
       <div
         className={cn(
@@ -68,20 +64,14 @@ const Sidebar = () => {
                 href={href}
                 className={cn(
                   "w-full flex items-center px-3 py-2 text-sm rounded-md transition-colors",
-                  isActive
-                    ? "bg-indigo-600 text-white" // Highlight active route
-                    : "text-white hover:bg-gray-700/50",
+                  isActive ? "bg-indigo-600 text-white" : "text-white hover:bg-gray-700/50",
                   !isOpen && "justify-center"
                 )}
               >
                 {content}
               </Link>
             </TooltipTrigger>
-            {!isOpen && (
-              <TooltipContent side="right">
-                <p>{label}</p>
-              </TooltipContent>
-            )}
+            {!isOpen && <TooltipContent side="right">{label}</TooltipContent>}
           </Tooltip>
         </TooltipProvider>
       );
@@ -93,21 +83,17 @@ const Sidebar = () => {
           <TooltipTrigger asChild>
             <Button
               variant="ghost"
-              onClick={logout} // Attach logout handler here for Logout button
+              onClick={logout}
               className={cn(
                 "w-full justify-start hover:bg-gray-700/50 hover:text-white",
-                isActive ? "bg-indigo-600 text-white" : "text-white",
+                "text-white",
                 !isOpen && "justify-center"
               )}
             >
               {content}
             </Button>
           </TooltipTrigger>
-          {!isOpen && (
-            <TooltipContent side="right">
-              <p>{label}</p>
-            </TooltipContent>
-          )}
+          {!isOpen && <TooltipContent side="right">{label}</TooltipContent>}
         </Tooltip>
       </TooltipProvider>
     );
@@ -128,7 +114,7 @@ const Sidebar = () => {
           onClick={toggleSidebar}
           className="text-white hover:bg-gray-700/50 hover:text-white"
         >
-          <FolderIcon className="h-6 w-6" />
+          <MenuIcon className="h-6 w-6" />
         </Button>
       </div>
 
@@ -136,17 +122,17 @@ const Sidebar = () => {
         {isOpen && <p className="text-xs uppercase text-gray-400 mb-2">Navigation</p>}
         <nav className="space-y-1">
           <NavItem href="/pages/dash" icon={HomeIcon} label="Overview" />
-          <NavItem href="/pages/dashboard" icon={UserGroupIcon} label="Manage Users" />
+          <NavItem href="/pages/dashboard" icon={UsersIcon} label="Manage Users" />
           <NavItem href="/pages/activity" icon={ClipboardIcon} label="Users Activity" />
-          <NavItem href="/pages/company" icon={BuildingOfficeIcon} label="Companies" />
+          <NavItem href="/pages/company" icon={OfficeBuildingIcon} label="Companies" />
           <NavItem href="/pages/users" icon={MapIcon} label="Navigations" />
-          <NavItem href="/pages/feedback" icon={ChatBubbleLeftIcon} label="Feedbacks" />
-          <NavItem href="/pages/onboard" icon={UserPlusIcon} label="Onboard User" />
+          <NavItem href="/pages/feedback" icon={ChatAltIcon} label="Feedbacks" />
+          <NavItem href="/pages/onboard" icon={UserAddIcon} label="Onboard User" />
         </nav>
       </div>
 
       <div className="mt-auto px-3 py-4">
-        <NavItem icon={ArrowRightIcon} label="Logout" />
+        <NavItem icon={LogoutIcon} label="Logout" />
       </div>
     </aside>
   );
