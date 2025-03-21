@@ -119,7 +119,7 @@ const FeedbackDisplay = () => {
             >
               <div className="flex justify-between items-center mb-4">
                 <span className="text-sm font-semibold text-gray-800 truncate bg-gray-100 px-2 py-1 rounded-full">
-                  {item.email.replace(/"/g, '')}
+                  {item.email}
                 </span>
                 <div className="flex items-center gap-1">
                   <span className="text-lg font-bold text-yellow-500">★</span>
