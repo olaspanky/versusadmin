@@ -167,8 +167,8 @@ const CompanyTimeReport = () => {
                           </TableHeader>
                           <TableBody>
                             {company.users.map((user) => (
-                              <TableRow key={user.email} className="border-b border-gray-600">
-                                <TableCell>{user.email}</TableCell>
+                              <TableRow key={user.email.replace(/"/g, '')} className="border-b border-gray-600">
+                                <TableCell>{user.email.replace(/"/g, '')}</TableCell>
                                 <TableCell>{formatTime(user.totalTime)}</TableCell>
                               </TableRow>
                             ))}

@@ -155,7 +155,7 @@ const UsersTable = () => {
     <div className="w-full h-[80vh] text-white overflow-auto">
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className='text-xl font-extrabold text-white'>
             <TableHead>Name</TableHead>
             <TableHead>Hours</TableHead>
             <TableHead>Last Login</TableHead>
@@ -165,7 +165,7 @@ const UsersTable = () => {
         <TableBody>
           {users.map((user) => (
             <TableRow key={user.id}>
-              <TableCell className="font-medium">  {user?.email}
+              <TableCell className="font-medium">  {user?.email.replace(/"/g, '')}
               </TableCell>
               <TableCell>
               <span>

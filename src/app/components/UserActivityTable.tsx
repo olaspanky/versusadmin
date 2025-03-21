@@ -1,3 +1,4 @@
+// components/UserActivityTable.tsx
 import React, { useState } from 'react';
 import {
   Table,
@@ -7,11 +8,11 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { UserActivity, User } from '../lib/data'; // Import from the shared file
+import { UserActivity } from '../lib/data'; // Use updated type
 
 interface UserActivityTableProps {
   activities: UserActivity[];
-  onRowClick: (user: User) => void; // Update to accept User object
+  onRowClick: (user: string) => void; // Pass string (email)
 }
 
 function parseDate(dateStr: string): Date {
@@ -45,7 +46,7 @@ const UserActivityTable: React.FC<UserActivityTableProps> = ({
 
   return (
     <div>
-      <div className="flex items-center mb-4 ">
+      <div className="flex items-center mb-4">
         <input
           type="date"
           value={searchDate}
@@ -62,7 +63,7 @@ const UserActivityTable: React.FC<UserActivityTableProps> = ({
       </div>
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="text-xl font-extrabold text-white">
             <TableHead>User</TableHead>
             <TableHead>Activity</TableHead>
             <TableHead>Date</TableHead>
@@ -72,10 +73,10 @@ const UserActivityTable: React.FC<UserActivityTableProps> = ({
           {sortedActivities.map((activity, index) => (
             <TableRow
               key={index}
-              onClick={() => onRowClick(activity.user)}
-              className="cursor-pointer hover:bg-gray-800 text-white "
+              onClick={() => onRowClick(activity.user)} // Pass user string
+              className="cursor-pointer hover:bg-gray-800 text-white"
             >
-              <TableCell>{activity.user.email}</TableCell> {/* Display user name */}
+              <TableCell>{activity.user.replace(/"/g, '')}</TableCell>
               <TableCell>{activity.activity}</TableCell>
               <TableCell>{activity.date}</TableCell>
             </TableRow>

@@ -32,12 +32,10 @@ ChartJS.register(
   Legend
 );
 
+// components/UserActivityGraph.tsx
 interface UserActivityGraphProps {
-  data: {
-    dates: string[];
-    timeSpent: number[];
-  };
-  user: User;
+  data: { dates: string[]; timeSpent: number[] };
+  user: User; // This User type expects 'id'
 }
 
 const UserActivityGraph: React.FC<UserActivityGraphProps> = ({ data, user }) => {

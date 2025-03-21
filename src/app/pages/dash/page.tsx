@@ -222,8 +222,8 @@ export default function CompanyAnalyticsDashboard() {
           <div className="bg-white/5 border border-white/10 rounded-lg p-4 backdrop-blur-md shadow-lg hover:shadow-xl transition-shadow">
             <h2 className="text-xl font-semibold text-indigo-300 mb-4">Top Users by Time Spent</h2>
             {topUsers.length > 0 ? topUsers.map((user, index) => (
-              <div key={user.email} className={`flex justify-between text-lg 2xl:text-xl py-2 px-4 rounded-md mb-2 ${index === 0 ? 'bg-indigo-500/20' : 'bg-gray-500/20'}`}>
-                <span>{user.email}</span>
+              <div key={user.email.replace(/"/g, '')} className={`flex justify-between text-md 2xl:text-lg py-2 px-4 rounded-md mb-2 ${index === 0 ? 'bg-indigo-500/20' : 'bg-gray-500/20'}`}>
+                <span>{user.email.replace(/"/g, '')}</span>
                 <span>{formatTimeToHours(user.totalTime)}</span>
               </div>
             )) : <p className="text-gray-400">No data available</p>}
@@ -233,7 +233,7 @@ export default function CompanyAnalyticsDashboard() {
           <div className="bg-white/5 border border-white/10 rounded-lg p-4 backdrop-blur-md shadow-lg hover:shadow-xl transition-shadow">
             <h2 className="text-xl font-semibold text-indigo-300 mb-4">Top Companies by Time</h2>
             {topCompanies.length > 0 ? topCompanies.map((company, index) => (
-              <div key={company.company} className={`text-lg 2xl:text-xl flex justify-between py-2 px-4 rounded-md mb-2 ${index === 0 ? 'bg-indigo-500/20' : 'bg-gray-500/20'}`}>
+              <div key={company.company} className={`text-md 2xl:text-lg flex justify-between py-2 px-4 rounded-md mb-2 ${index === 0 ? 'bg-indigo-500/20' : 'bg-gray-500/20'}`}>
                 <span className="capitalize">{company.company}</span>
                 <span>{formatTimeToHours(company.totalTime)} ({company.userCount} users)</span>
               </div>
@@ -244,8 +244,8 @@ export default function CompanyAnalyticsDashboard() {
           <div className="bg-white/5 border border-white/10 rounded-lg p-4 backdrop-blur-md shadow-lg hover:shadow-xl transition-shadow">
             <h2 className="text-xl font-semibold text-indigo-300 mb-4">Top User per Company</h2>
             {topUserPerCompany.length > 0 ? topUserPerCompany.slice(0, 10).map((entry) => (
-              <div key={entry.company} className="ttext-lg 2xl:text-xl flex justify-between py-2 px-4 rounded-md mb-2 bg-gray-500/20">
-                <span className="capitalize">{entry.company}: {entry.email}</span>
+              <div key={entry.company} className="text-md 2xl:text-lg flex justify-between py-2 px-4 rounded-md mb-2 bg-gray-500/20">
+                <span className="capitalize">{entry.company}: {entry.email.replace(/"/g, '')}</span>
                 <span>{formatTimeToHours(entry.totalTime)}</span>
               </div>
             )) : <p className="text-gray-400">No data available</p>}
@@ -255,7 +255,7 @@ export default function CompanyAnalyticsDashboard() {
           <div className="bg-white/5 border border-white/10 rounded-lg p-4 backdrop-blur-md shadow-lg hover:shadow-xl transition-shadow">
             <h2 className="text-xl font-semibold text-indigo-300 mb-4">Top Pages Visited</h2>
             {pageStats.length > 0 ? pageStats.map((page, index) => (
-              <div key={page.page} className={`text-lg 2xl:text-xl flex justify-between py-2 px-4 rounded-md mb-2 ${index === 0 ? 'bg-indigo-500/20' : 'bg-gray-500/20'}`}>
+              <div key={page.page} className={`text-md 2xl:text-lg flex justify-between py-2 px-4 rounded-md mb-2 ${index === 0 ? 'bg-indigo-500/20' : 'bg-gray-500/20'}`}>
                 <span className="capitalize">{page.page}</span>
                 <span>{page.visitCount} visits ({formatTimeToHours(page.totalTimeSpent)})</span>
               </div>
