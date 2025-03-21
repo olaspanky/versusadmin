@@ -20,7 +20,7 @@ import {
   MapIcon,            // Navigations
   ChatBubbleLeftIcon, // Feedbacks
   UserPlusIcon,       // Onboard User
-  ArrowRightOnRectangleIcon, // Logout
+  ArrowRightIcon, // Logout
 } from "@heroicons/react/24/outline"; // Use outline icons from v2
 import { useAuth } from "../context/AuthContext";
 
@@ -146,7 +146,7 @@ const Sidebar = () => {
       </div>
 
       <div className="mt-auto px-3 py-4">
-        <NavItem icon={ArrowRightOnRectangleIcon} label="Logout" />
+        <NavItem icon={ArrowRightIcon} label="Logout" />
       </div>
     </aside>
   );
